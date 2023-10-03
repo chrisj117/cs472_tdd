@@ -14,12 +14,13 @@ how to call the web service and assert what it should return.
 from unittest import TestCase
 
 # we need to import the unit under test - counter
-from src.counter import app 
+from src.counter import app
 
 # we need to import the file that contains the status codes
-from src import status 
+from src import status
 
 import json
+
 
 class CounterTest(TestCase):
     """Counter tests"""
@@ -32,7 +33,7 @@ class CounterTest(TestCase):
         client = app.test_client()
         result = client.post('/counters/foo')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-    
+
     def test_duplicate_a_counter(self):
         """It should return an error for duplicates"""
         result = self.client.post('/counters/bar')
