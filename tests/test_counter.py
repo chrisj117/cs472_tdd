@@ -73,3 +73,18 @@ class CounterTest(TestCase):
         # Bad get call should return 404
         badRead = self.client.get('/counters/test3')
         self.assertEqual(badRead.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_a_counter(self):
+        """It should successfully delete a counter"""
+        # Create a counter
+        result = self.client.post('/counters/test4')
+        self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+        # Delete the counter
+        deleted = self.client.delete('/counters/test4')
+        # Status should be 204_NO_CONTENT
+        self.assertEqual(deleted.status_code, status.HTTP_204_NO_CONTENT)
+        # Bad get and delete calls should return 404
+        badDelete = self.client.get('/counters/test4')
+        self.assertEqual(badDelete.status_code, status.HTTP_404_NOT_FOUND)
+        badDelete = self.client.delete('/counters/test4')
+        self.assertEqual(badDelete.status_code, status.HTTP_404_NOT_FOUND)
